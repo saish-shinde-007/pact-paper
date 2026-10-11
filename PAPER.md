@@ -180,10 +180,6 @@ All code, the 70-item corpus, both juror prompts and all 2,870 recorded verdicts
 
 The evaluation domain is benign by construction: repository secret handling, with items that are one-line fragments of ordinary engineering content. Every credential-shaped string in the corpus is synthetic, and a gate in the test suite verifies that no live-format secret ships. Models are asked only to classify; no experiment elicits harmful content, and when evaluator models declined a task in an earlier companion run, the refusals were recorded as a finding rather than circumvented, which motivated first-class abstention in the protocol. The work involves no human subjects and no personal data.
 
-## Acknowledgment
-
-The author used large language model tools for software engineering assistance and manuscript editing. The author reviewed all content and takes full responsibility for it.
-
 ## References
 
 All entries verified against primary sources (RFC Editor, ACM DL, IEEE Xplore,
