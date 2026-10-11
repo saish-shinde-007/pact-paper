@@ -134,7 +134,7 @@ def render(md: str) -> str:
             t = re.sub(r"^[IVX]+\.\s*", "", ln[3:].strip())
             # SaTML-required statements are unnumbered and sit before the references
             star = "*" if t in ("Open Science", "LLM Usage Considerations",
-                                "Ethical Considerations") else ""
+                                "Ethical Considerations", "Acknowledgment") else ""
             out.append("\n\\section%s{%s}" % (star, inline(t, code))); i += 1
             if t == "Introduction":
                 out.append(FIGURE)
@@ -186,6 +186,10 @@ def main():
     body_md = md[md.index("## I. Introduction"):]
     at = body_md.index("## References")
     body, refs_md = body_md[:at], body_md[at:]
+    if ANON:  # SaTML copy: required LLM statement in, acknowledgment out (double-blind)
+        body = re.sub(r"## Acknowledgment\n.*", "", body, flags=re.S)
+        llm = (ROOT / "satml_llm_usage.md").read_text()
+        body = body.replace("## Ethical Considerations", llm + "\n## Ethical Considerations")
     refs = re.findall(r"^(\d+)\.\s+(.*)$", refs_md, re.M)
 
     if not FIG.exists():
