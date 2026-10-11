@@ -13,6 +13,11 @@ import sys
 # --anon: SaTML-style double-blind build (main-anon.tex; author block swapped,
 # nothing else differs). Default build is the named arXiv/camera-ready one.
 ANON = "--anon" in sys.argv
+# IEEE preprint policy: public copies of an IEEE-submitted paper carry this notice.
+IEEE_NOTICE = "" if ANON else (
+    "\\thanks{This work has been submitted to the IEEE for possible publication. "
+    "Copyright may be transferred without notice, after which this version may no "
+    "longer be accessible.}")
 ARTIFACT = ("the anonymized repository accompanying this submission "
             "(https://anonymous.4open.science/r/pact-review-2027)" if ANON else
             "https://github.com/saish-shinde-007/pact-paper, archived with DOI "
@@ -192,7 +197,7 @@ def main():
     bib.append("\\end{thebibliography}")
 
     doc = (PREAMBLE
-           + "\n\\title{%s}\n" % inline(title, code)
+           + "\n\\title{%s%s}\n" % (inline(title, code), IEEE_NOTICE)
            + AUTHOR_BLOCK
            + "\n\\maketitle\n"
            + "\n\\begin{abstract}\n%s\n\\end{abstract}\n" % inline(abstract, code)
